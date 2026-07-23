@@ -41,7 +41,7 @@ Pierwszy audyt pokazał, że duża rozmowa może zawierać jednocześnie wartoś
 - kolejnych reguł po każdym pojedynczym odkryciu, poza bezpieczeństwem i utratą danych;
 - wersji v1 przed zebraniem porównywalnych wyników.
 
-## Definition of Done
+## Definicja ukończenia (Definition of Done)
 
 - [ ] przeprowadzono 10 rzeczywistych sesji;
 - [x] aktywowano pilot decyzją użytkownika;
