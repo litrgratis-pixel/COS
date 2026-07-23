@@ -4,7 +4,7 @@ type: handoff_snapshot
 version: 0.1
 status: active
 generated_at: 2026-07-23
-source_commit_or_hash: 2ac4806ec97ad8e313efab90e62e7d037e9138e5
+source_commit_or_hash: 2d90c6e364708c4bd982a43057ee5be13dc8c2dd
 valid_until: 2026-07-30
 ---
 
@@ -26,7 +26,7 @@ To jest skrót do uruchomienia nowej rozmowy. Nie jest źródłem prawdy; w razi
 
 1. przeczytaj `README.md` i `PILOT/README.md`;
 2. przeczytaj pliki źródłowe wskazane niżej;
-3. przeczytaj ostatni raport `COS/SESJE/2026-07-23-001.md`;
+3. przeczytaj ostatni raport `COS/SESJE/2026-07-23-002.md`;
 4. wykonaj `BOOT_ACK` z `PILOT/README.md`;
 5. podaj commit bazowy i niepewności.
 
@@ -39,10 +39,38 @@ Przeprowadzić dziesięć rzeczywistych sesji, w tym serię zróżnicowanych aud
 - `DEC-2026-000` — pilot Cognitive OS v0 jest aktywny.
 - `DEC-2026-001` — analizujemy kilka rozmów dwuetapowo i finalizujemy COS dopiero na podstawie checkpointów oraz metryk.
 
+## Aktualny postęp
+
+- zakończono 2 audyty rozmów z wymaganych minimum 3 przed pierwszym checkpointem;
+- `AUD-2026-001`: długi, sekwencyjny scope creep i overclaimy techniczne;
+- `AUD-2026-002`: krótsza rozmowa, skompresowany scope creep w zwartym dokumencie normatywnym;
+- nie zmierzono jeszcze czasu bootstrapu, analizy ani protokołu;
+- nie zmieniono protokołu po drugim audycie.
+
+## Lekcja z AUD-2026-002
+
+Trzeba rozdzielać:
+
+```text
+rodzaj sesji źródłowej
+formę artefaktu przekazanego audytorowi
+możliwość atrybucji wypowiedzi
+poziom decyzji
+```
+
+W szczególności:
+
+```text
+DECISION_IN_ARTIFACT ≠ USER_DECISION ≠ COS_DECISION
+```
+
+Rozmowa może zakończyć się zwartym dokumentem. Zwarty dokument nie daje jednak automatycznie pełnej atrybucji decyzji.
+
 ## Czego nie otwierać ponownie bez nowych danych
 
 - budowa pełnego produktu COS — warunek: zakończony pilot i decyzja końcowa;
 - wieloagentowa orkiestracja, routing i debate jako funkcja — warunek: benchmark po pilocie;
+- pełny AI Collaboration Operating System i jedenastofazowy workflow — warunek: dowód przewagi nad minimalnym COS i pomiar kosztu;
 - self-heal, daily AI review i automatyczne zmiany — warunek: stabilny rdzeń, testy, rollback i human approval;
 - ogłoszenie v1 — warunek: kryteria `PILOT/FINALIZACJA_V1.md`;
 - zapis surowych rozmów do publicznego repo — warunek: redakcja, klasyfikacja danych i jawna zgoda.
@@ -53,30 +81,42 @@ Przed reopenem sprawdź `WNIOSKI_I_POMYSLY/MAPA_ALIASOW.md`. Nowa nazwa nie jest
 
 - ID: `WORK-2026-07-21-001`.
 - Rezultat: dowód po 10 sesjach i konfiguracja najmniejszej użytecznej wersji końcowej.
-- Aktualny stan: zakończono pierwszy audyt i jakościowy baseline; następny audyt ma być krótszym przypadkiem kontrolnym.
+- Aktualny stan: 2 audyty rozmów zakończone; pierwszy checkpoint po trzecim.
 - Definition of Done: `COS/03_AKTYWNY.md`.
 
 ## Ostatni rezultat i dowód
 
-- raport sesji: `COS/SESJE/2026-07-23-001.md`;
-- audyt: `PILOT/AUDYTY/AUD-2026-001_4AI.md`;
+- raport sesji: `COS/SESJE/2026-07-23-002.md`;
+- audyt: `PILOT/AUDYTY/AUD-2026-002_AI_COLLABORATION_OS.md`;
 - rejestr: `PILOT/REJESTR_ROZMOW.md`;
 - metryki: `PILOT/METRYKI.md`;
-- incydenty: `INC-2026-001`, `INC-2026-002`, `INC-2026-003` w `COS/INCYDENTY.md`.
+- nowy incydent: `INC-2026-004` w `COS/INCYDENTY.md`.
 
-Najważniejsza lekcja: potrzebna jest lepsza brama między pomysłem a zmianą stanu, nie kolejny orchestrator modeli.
+Najważniejsza lekcja przekrojowa: nadmierna architektura może rosnąć stopniowo albo zostać skompresowana do jednej eleganckiej, pozornie kompletnej odpowiedzi.
 
-## Parking, który może być gotowy do przeglądu
+## Kandydaci oczekujący na checkpoint
 
-Na obecnym etapie żaden kierunek produktowy nie jest gotowy. Krajobraz pomysłów znajduje się w `WNIOSKI_I_POMYSLY/POMYSLY.md`; formalna aktywacja wymaga decyzji użytkownika i wpisu w kanonicznym parkingu lub backlogu.
+Nie są jeszcze regułami:
+
+1. dwie osie klasyfikacji źródła:
+   - `source_session_kind`;
+   - `submitted_artifact_kind`;
+2. trzy poziomy decyzji:
+   - `DECISION_IN_ARTIFACT`;
+   - `USER_DECISION`;
+   - `COS_DECISION`;
+3. lekka karta intake:
+   - `RESULT / LEVEL / READINESS_STATE / TARGET_ARTIFACT / GATE`.
 
 ## Jeden następny krok
 
-Wybrać krótszą rozmowę o jasno określonym rezultacie, przeprowadzić audyt według `PILOT/SZABLON_AUDYTU_ROZMOWY.md` i zmierzyć:
+Wybrać trzeci przypadek o maksymalnym kontraście:
 
-- `bootstrap_minutes`;
-- `analysis_minutes`;
-- `protocol_minutes`.
+- inna domena niż projektowanie systemów AI;
+- rozmowa przebiegająca dobrze albo bez dużego dryfu;
+- pełna transkrypcja lub etykiety USER/AI;
+- jasno określony rezultat;
+- zmierzone `bootstrap_minutes`, `analysis_minutes` i `protocol_minutes`.
 
 ## Pliki źródłowe
 
@@ -89,9 +129,11 @@ Wybrać krótszą rozmowę o jasno określonym rezultacie, przeprowadzić audyt 
 - `DOWODY.md`
 - `INCYDENTY.md`
 - `99_HANDOFF.md`
+- `SESJE/2026-07-23-002.md`
 - `../PILOT/README.md`
 - `../PILOT/REJESTR_ROZMOW.md`
 - `../PILOT/METRYKI.md`
+- `../PILOT/AUDYTY/AUD-2026-002_AI_COLLABORATION_OS.md`
 - `../PILOT/FINALIZACJA_V1.md`
 - `../WNIOSKI_I_POMYSLY/README.md`
 - `../WNIOSKI_I_POMYSLY/MAPA_ALIASOW.md`
