@@ -4,7 +4,7 @@ type: handoff_snapshot
 version: 0.1
 status: active
 generated_at: 2026-07-23
-source_commit_or_hash: bb6795d8fd040b28bda53c6b830857fb998a172a
+source_commit_or_hash: 2ac4806ec97ad8e313efab90e62e7d037e9138e5
 valid_until: 2026-07-30
 ---
 
