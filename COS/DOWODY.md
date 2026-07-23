@@ -10,7 +10,7 @@ Rejestr rozdziela źródło od interpretacji. Każdy dowód ma datę, zakres i o
 
 | ID | Teza | Typ źródła | URL/ścieżka | Data/wersja | Zakres | Ograniczenie | Status |
 |---|---|---|---|---|---|---|---|
-| EVD-000 | ... | test / dokument / obserwacja / ekspert | ... | ... | ... | ... | proposed/accepted/rejected |
+| EVD-YYYY-NNN | ... | test / dokument / obserwacja / ekspert | ... | ... | ... | ... | proposed/accepted/rejected |
 
 ## Reguły
 

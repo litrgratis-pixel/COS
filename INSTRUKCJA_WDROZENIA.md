@@ -1,72 +1,118 @@
-# INSTRUKCJA WDROŻENIA — Creative OS
+# Instrukcja wdrożenia pakietu Cognitive OS v0
 
-## Setup (jednorazowy, ~45 min)
+Instrukcja zakłada, że katalog `cognitive-os-v0/` został pobrany lub skopiowany do katalogu roboczego. Nie nadpisuj istniejących plików bez porównania ich treści.
 
-1. **Utwórz repo:** GitHub → New repository → `creative-os` → Private → Create.
-2. **Sklonuj lokalnie:**
-   ```bash
-   cd ~/projekty
-   git clone git@github.com:twoj-user/creative-os.git
-   cd creative-os
-   ```
-3. **Wrzuć te pliki** do folderu repo (zastępując puste `git init`).
-4. **`.gitignore`:**
-   ```
-   .DS_Store
-   .obsidian/workspace*
-   ```
-   *(Świadomie NIE ignorujemy `SESJE/` — pliki sesji to Wasz dowód, że destylat faktycznie trafił do plików docelowych, nie tylko powstał. Tekst jest tani; ten ślad jest cenny.)*
-5. **Pierwszy commit:**
-   ```bash
-   git add . && git commit -m "init: Creative OS v1" && git push -u origin main
-   ```
+## 1. Przygotowanie
 
-## Codzienny cykl
+Sprawdź, czy repozytorium ma już podobne katalogi:
 
-```
-START  →  wklej 00_INDEX.md + ODCINEK_AKTYWNY.md + Opener Prompt
-   ↓
-PRACA  →  notatki w SESJE/YYYY-MM-DD_sesja_NNN.md §5
-   ↓
-KONIEC →  Closer Prompt (OBOWIĄZKOWO) → destylat
-   ↓
-ZAPIS  →  destylat → DECYZJE / PARKING / ODCINEK_AKTYWNY / INDEX
-   ↓
-COMMIT →  git add . && git commit -m "EP-XXX: ..." && git push
+```bash
+find . -maxdepth 2 -type d \( -name 'COS' -o -name 'cos' -o -name 'SESJE' \) -print
+find . -maxdepth 2 -type f | rg 'KOMPAS|KANON|DECYZJE|PARKING|HANDOFF|BRAMA'
 ```
 
-## Sync między urządzeniami
+Jeśli istnieje wcześniejszy system, zachowaj go jako wersję archiwalną lub osobną gałąź. Nie migruj automatycznie całej historii; przenieś tylko decyzje, które mają dowód i aktualny status.
 
-- `git pull` PRZED sesją, `git push` PO. Zawsze, bez wyjątku.
-- `DECYZJE.md` / `PARKING.md` / `DONE.md` są append-only → merge trywialny.
-- `ODCINEK_AKTYWNY.md` NIE jest append-only → tu będą prawdziwe konflikty, jeśli zapomnisz `pull`. Edytuj z jednego urządzenia naraz.
-- `00_INDEX.md` (liczniki) — konflikt = dwie sesje utworzyły ten sam ID. Renumeruj ręcznie tę drugą.
+## 2. Skopiowanie plików
 
-## Częste błędy — czego NIE robić
+Najbezpieczniejszy wariant to osobna gałąź i podgląd kopiowania:
 
-- ❌ Nie pomijaj Closer Prompta „bo krótka sesja".
-- ❌ Nie edytuj starych DEC/PARK — tylko `SUPERSEDED BY` / `REACTIVATED BY`.
-- ❌ Nie zostawiaj PARK bez warunku powrotu.
-- ❌ Nie rozwijaj pomysłu z BACKLOG-u przy okazji pracy nad innym odcinkiem — to już jest praca nad nim, a WIP = 1.
-- ❌ Nie oceniaj sam kryterium DoD „da się obejrzeć bez tłumaczenia" — pokaż komuś z zewnątrz (dla EP-001/002 zawsze, od EP-003 co 3. odcinek — patrz `AZYMUT.md` pkt 6). Twórca ma najgorszy możliwy wgląd w to akurat pytanie, bo ma pełen kontekst, którego widz nie ma.
-- ❌ Nie licz na to, że AI samo zapisze zmiany o północy. Żaden mainstream LLM tego nie robi. Jeśli chcesz realnej automatyzacji cyklu (odczyt notatek → destylat → zapis do plików → commit) — to poziom Claude Code / Cursor Agent, nie czatu. Warto rozważyć po 2–3 tygodniach, gdy system się zadomowi, nie na starcie.
+```bash
+git switch -c cos-v0
+rsync -avn cognitive-os-v0/COS/ ./COS/
+rsync -av cognitive-os-v0/COS/ ./COS/
+rsync -avn cognitive-os-v0/docs/ ./docs/cognitive-os/
+rsync -av cognitive-os-v0/docs/ ./docs/cognitive-os/
+rsync -avn cognitive-os-v0/schemas/ ./schemas/cognitive-os/
+rsync -av cognitive-os-v0/schemas/ ./schemas/cognitive-os/
+rsync -avn cognitive-os-v0/scripts/ ./scripts/cognitive-os/
+rsync -av cognitive-os-v0/scripts/ ./scripts/cognitive-os/
+```
 
-## Kiedy system się psuje — sygnały ostrzegawcze
+Jeżeli repo ma własną konwencję, zmień ścieżki, ale nie zmieniaj semantyki plików bez wpisu w `COS/02_KANON.md`.
 
-| Objaw | Diagnoza | Naprawa |
+## 3. Uzupełnienie minimum ręcznie
+
+Przed pierwszą sesją uzupełnij:
+
+1. `COS/00_KONTRAKT_PRACY_Z_AI.md` — tylko faktycznie potwierdzone preferencje; usuń zdania, których nie chcesz przenosić między narzędziami.
+2. `COS/01_KOMPAS.md` — jeden cel aktywny, jeden następny krok.
+3. `COS/02_KANON.md` — zasady obowiązujące niezależnie od modelu.
+4. `COS/03_AKTYWNY.md` — rezultat i Definition of Done bieżącej pracy.
+5. `COS/BRAMA_BUDOWANIA.md` — wpis dla pomysłu, jeśli rozważasz budowę.
+
+Nie wpisuj do kanonu hipotez, preferencji modelu ani niezweryfikowanych pomysłów.
+
+## 4. Walidacja lokalna
+
+Walidator nie ocenia prawdziwości treści; sprawdza spójność struktury i obecność bezpieczników:
+
+```bash
+python3 cognitive-os-v0/scripts/validate_cos.py ./COS
+```
+
+Po skopiowaniu skryptu do repozytorium odpowiednią komendą będzie:
+
+```bash
+python3 scripts/cognitive-os/validate_cos.py ./COS
+```
+
+W CI uruchamiaj go na każdym pull requeście, ale nie blokuj pracy na ostrzeżeniach dotyczących pustych sekcji eksperymentu. Błędy strukturalne powinny blokować merge.
+
+## 5. Bootstrap nowej sesji
+
+Do nowej rozmowy wklej w tej kolejności:
+
+```text
+COS/00_KONTRAKT_PRACY_Z_AI.md
+COS/02_KANON.md
+COS/01_KOMPAS.md
+COS/03_AKTYWNY.md
+COS/99_HANDOFF.md
+```
+
+Dodaj tylko pliki potrzebne do zadania. Na początku poproś model o krótkie potwierdzenie: aktywny cel, tryb, źródła prawdy, otwarte pytania i jeden następny krok. Nie proś o ponowne streszczenie całej historii.
+
+## 6. Przebieg sesji
+
+1. **Intake:** nazwij rezultat, nie temat rozmowy.
+2. **Klasyfikacja:** wybierz `LITE`, `STANDARD` albo `CRITICAL` według `COS/08_PAKIET_WERYFIKACYJNY.md`.
+3. **Brama ponownego użycia:** wypełnij sekcję alternatyw przed projektowaniem własnego rozwiązania.
+4. **Praca właściwa:** model może proponować warianty, ale każdą istotną tezę oznacza jako fakt, hipotezę, preferencję albo decyzję.
+5. **Weryfikacja:** uruchom tylko kontrole wymagane przez stawkę; ogranicz liczbę rund.
+6. **Autoryzacja:** człowiek wybiera, odrzuca lub odkłada propozycję. Zapisz powód odstępstwa od werdyktu modelu.
+7. **Closer:** wypełnij `COS/09_CLOSER_SESJI.md`; aktualizuj pliki kanoniczne dopiero po zatwierdzeniu.
+8. **Handoff:** wygeneruj zwięzły pakiet startowy i sprawdź go względem kanonu.
+
+## 7. Migracja ze starego systemu
+
+| Stary element | Miejsce w v0 | Reguła migracji |
 |---|---|---|
-| 4. otwarte pytanie w `ODCINEK_AKTYWNY.md` | Odcinek za szeroki | Rozstrzygnij jedno z 3 istniejących, albo przenieś wątek do PARKING |
-| `BACKLOG.md` > 15 pozycji | Backlog martwy — ambicje sprzed miesięcy | Miesięczny przegląd: usuń albo przenieś do PARKING z warunkiem |
-| Pracujesz nad 2 odcinkami naraz (poza etapem czysto produkcyjnym: montaż/eksport) | Złamany WIP=1 na etapie kreatywnym | Wróć do jednego — drugi do BACKLOG/PARKING |
-| 3. runda poprawek tego samego odcinka | Perfekcjonizm wygrywa z DoD | Publikuj „nie-idealny" albo świadomie SUPERSEDED i nowy DEC |
-| AI nie wie, „w którym jesteśmy poziomie" | Mieszasz poziomy w jednej wypowiedzi | Zatrzymaj się, nazwij poziom jawnie, potem kontynuuj |
-| Zmieniłeś `AZYMUT.md`, ale nie przejrzałeś `BACKLOG.md` | Seria się rozjeżdża cicho | Audyt backlogu po KAŻDEJ zmianie Azymutu, bez wyjątku |
+| zasada WIP = 1 | `02_KANON.md` | zachowaj jako zasadę, dopisz wyjątki |
+| decyzje | `DECYZJE.md` | przenieś z identyfikatorem i źródłem |
+| pomysły odłożone | `PARKING.md` | dodaj warunek powrotu i datę przeglądu |
+| luźne przyszłe prace | `BACKLOG.md` | bez rozwijania architektury |
+| bieżąca praca | `03_AKTYWNY.md` | tylko jeden rezultat |
+| notatki sesji | `SESJE/` | zachowaj jako materiał dowodowy, nie jako kanon |
+| dawne streszczenia | `99_HANDOFF.md` | traktuj jako snapshot; sprawdź świeżość |
 
-## Sprawdzian po 30 dniach
+Nie przenoś bez kontroli „prawd o użytkowniku” ani ocen modelu. Umieść je w kontrakcie dopiero po świadomym potwierdzeniu.
 
-Załóż GitHub issue w tym repo, tytuł „Przegląd Creative OS", z terminem (due date) na 30 dni od dziś: „czy jeszcze używam Creative OS? Jeśli nie — czemu?" Issue z terminem żyje w tym samym miejscu co reszta pracy — kalendarzowe przypomnienie konkuruje o uwagę z całą resztą życia i przegrywa tak samo łatwo, jak sam system, który ma pilnować.
-„Zapomniałem" nie jest prawdziwą odpowiedzią. Prawdziwa to jedna z trzech: (1) za dużo ceremonii, (2) nie widzę zwrotu, (3) projekt umarł. Każda wymaga innej reakcji — pierwsza: uprość format (więcej DEC-lite, mniej pól); druga: sprawdź, czy realnie coś publikujesz, czy tylko dokumentujesz; trzecia: to nie jest porażka systemu.
+## 8. Git i uprawnienia
 
-## Jedna uwaga o zakresie tego systemu
+- Zmiany w `00_KONTRAKT`, `02_KANON`, `DECYZJE` i `99_HANDOFF` rób przez osobny commit/PR.
+- Model pracuje na branchu lub generuje patch; nie dostaje bezpośredniego zapisu do kanonu.
+- Transkrypcje mogą zawierać dane wrażliwe. Trzymaj je poza repo albo redaguj przed commitem.
+- Dodaj `.gitignore` dla sekretów, eksportów narzędzi i surowych danych użytkowników.
+- Zachowaj datę, wersję modelu i źródła przy każdej decyzji o istotnej stawce.
 
-Ten system jest skrojony pod pracę odcinkową/serialną. Nie kopiuj go automatycznie do innych projektów o innym kształcie (np. jednorazowy landing page) — tam wystarczy prostszy system albo żaden.
+## 9. Pilot i kryterium kontynuacji
+
+Uruchom `docs/05_PLAN_PILOTA_10_SESJI.md`. Po dziesięciu rzeczywistych sesjach porównaj czas wznowienia, liczbę powtórzonych decyzji, liczbę zaparkowanych rozproszeń, koszt nadzoru i liczbę korekt po weryfikacji.
+
+Nie dodawaj agentów, grafu wiedzy, wyszukiwania semantycznego ani automatycznego zapisu, jeśli pilot nie pokaże konkretnej awarii, której te elementy naprawiają.
+
+## 10. Wycofanie
+
+Pakiet jest dodatkiem do repo. Jeśli zwiększa tarcie, można go wyłączyć przez zmianę aktywnego celu i zachowanie historii commitów. Nie usuwaj zapisów sesji; oznacz eksperyment jako przerwany wraz z przyczyną. Powrót do poprzedniej gałęzi nie wymaga niszczenia danych.
+

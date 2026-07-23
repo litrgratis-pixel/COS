@@ -10,6 +10,12 @@ status: draft
 
 To nie jest streszczenie rozmowy. To destylacja zmian stanu.
 
+## ZMIANA STANU
+
+- [ ] `STATE_CHANGE`
+- [ ] `NO_STATE_CHANGE`
+- Uzasadnienie:
+
 ## DECYZJE
 
 - ID i krótki zapis:

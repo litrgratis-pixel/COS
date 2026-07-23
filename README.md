@@ -1,33 +1,58 @@
-# Creative OS — system dowożenia jednego odcinka naraz
+# Cognitive OS v0 — pakiet protokołu pracy z AI
 
-To nie jest generyczny system dokumentacji — jest skrojony pod pracę serialną/odcinkową, gdzie głównym ryzykiem jest to, że każdy nowy dobry pomysł dostaje nienależny priorytet. System nie zwiększa kreatywności — reguluje jej dostęp do aktywnej produkcji.
+To repozytorium jest kanonicznym pakietem startowym Cognitive OS v0, wynikającym z analizy rozmowy i późniejszego audytu struktury. Nie jest „gotowym Cognitive OS” ani autonomicznym systemem podejmowania decyzji. Jest małym, przenośnym protokołem, który ma sprawdzić jedną hipotezę:
 
-## Zasada nadrzędna
+> Czy jawny stan projektu, brama ponownego użycia, adaptacyjny nadzór i obowiązkowa destylacja sesji pozwalają szybciej i bezpieczniej pracować z różnymi modelami AI?
 
-**W danym momencie istnieje tylko 1 aktywny odcinek** (etap kreatywny — koncepcja/scenariusz; etapy czysto produkcyjne jak montaż mogą iść równolegle). Wszystko inne ląduje w `BACKLOG.md` (przyszłe odcinki) albo `PARKING.md` (pomysły/podejścia odłożone z warunkiem powrotu).
+## Werdykt w jednym akapicie
 
-## Struktura
+Rozmowa trafnie rozpoznała problem: model generuje, a człowiek zostaje jednocześnie właścicielem celu, recenzentem, ekspertem, kontrolerem zakresu i archiwistą. Trafnie też zaproponowała rozdzielenie rozmowy (procesor) i repozytorium (stan). Niedopracowane pozostaje „AI weryfikuje AI”: drugi model nie jest automatycznie niezależnym ani prawdziwym arbitrem. W tym pakiecie weryfikacja oznacza triangulację dowodów, kontradyktoryjny atak, testy możliwe do odtworzenia, jawne granice pewności oraz autoryzację człowieka dla decyzji o istotnej stawce.
 
+## Struktura repozytorium
+
+- `COS/` — minimalny stan operacyjny i szablony plików sterujących;
+- `docs/` — analiza, luki, specyfikacja pętli weryfikacyjnej, architektura i plan pilota;
+- `schemas/` — opcjonalne kontrakty maszynowe dla walidatora;
+- `scripts/validate_cos.py` — lokalna kontrola spójności bez wywoływania modelu;
+- `templates/` — prompty robocze, closer i niezależny reviewer;
+- `INSTRUKCJA_WDROZENIA.md` — kolejność wdrożenia i migracji.
+
+Gałąź `main` jest źródłem prawdy dla Cognitive OS v0. Poprzedni projekt scenariuszowy jest zachowany w gałęzi `archive/creative-os-v1`.
+
+## Najkrótszy model działania
+
+```text
+intake → klasyfikacja stawki → sprawdzenie ponownego użycia
+       → propozycje → niezależny atak i dowody → decyzja człowieka
+       → patch/eksperyment → closer → aktualizacja kanonu i handoff
 ```
-creative-os/
-├── 00_INDEX.md              ← wklejasz do AI na start sesji, razem z ODCINEK_AKTYWNY.md
-├── AZYMUT.md                 ← rdzeń marki, obietnica, czego NIE robimy (rzadko zmieniany)
-├── BACKLOG.md                 ← przyszłe odcinki, tytuł + 1 zdanie
-├── PARKING.md                 ← pomysły/podejścia odłożone, z warunkiem powrotu ⏰
-├── ODCINEK_AKTYWNY.md         ← JEDYNY aktywny odcinek + jego otwarte pytania (max 3)
-├── DECYZJE.md                 ← DEC-lite / DEC-full, append-only
-├── DONE.md                    ← opublikowane odcinki + wnioski, append-only
-├── SESJE/
-│   └── SZABLON_sesja.md
-├── PROMPTY_SESJI.md           ← Opener + Closer
-└── INSTRUKCJA_WDROZENIA.md
-```
 
-Świadomie NIE ma osobnego pliku na otwarte pytania — żyją wewnątrz `ODCINEK_AKTYWNY.md`, bo są właściwością aktywnego odcinka, nie osobnym bytem, i znikają razem z nim (po przeniesieniu ważnych ustaleń do `DECYZJE.md`/`DONE.md`).
+Pętla nie ma obowiązku uruchamiać wszystkich kroków przy każdym pytaniu. Ma obowiązek dobrać głębokość do stawki i zatrzymać się po osiągnięciu kryterium zakończenia.
 
-## Zacznij tutaj
+## Niezbywalne reguły v0
 
-1. `INSTRUKCJA_WDROZENIA.md` (krok po kroku, GitHub).
-2. Wypełnij `AZYMUT.md` swoimi słowami (już zaczęte — sprawdź, czy nadal aktualne).
-3. `ODCINEK_AKTYWNY.md` ma już `EP-001` — „Ryba spod lodu" — jako punkt startowy.
-4. Pierwsza sesja: `PROMPTY_SESJI.md` → Opener.
+1. **Nie buduj przed sprawdzeniem ponownego użycia.** Brak znalezionego rozwiązania oznacza „nie znaleziono w określonym zakresie”, a nie „nie istnieje”.
+2. **Weryfikator nie jest wyrocznią.** Wysoka zgodność dwóch modeli nie zastępuje dowodu ani eksperta domenowego.
+3. **Żadna sugestia modelu nie zmienia kanonu samoczynnie.** Model przygotowuje propozycję/patch; człowiek zatwierdza zmianę.
+4. **Decyzja musi być typowana i odwracalna, jeśli to możliwe.** Zapisujemy powód, dowody, warunek ponownego otwarcia i ryzyko resztkowe.
+5. **Każda sesja kończy się zmianą stanu albo jawnym „brak zmiany”.** Samo streszczenie rozmowy nie jest closerem.
+6. **Brak dowodu = jawna niepewność.** Nie wolno zamieniać niewiedzy w pewne „tak/nie”.
+7. **Koszt nadzoru jest metryką.** Jeśli protokół zabiera więcej czasu niż praca, upraszczamy go przed dodaniem funkcji.
+
+## Zalecana kolejność czytania
+
+1. `INSTRUKCJA_WDROZENIA.md`
+2. `docs/01_ANALIZA_WNIKLIWA.md`
+3. `docs/02_LUKI_RYZYKA_I_NIEDOPOWIEDZENIA.md`
+4. `docs/03_AI_WERYFIKUJE_AI.md`
+5. pliki w `COS/`
+6. `docs/05_PLAN_PILOTA_10_SESJI.md`
+7. `docs/08_FAJNIE_WYMYSLONE_ALE_WDROZ_INACZEJ.md`
+
+## Zakres i ograniczenia
+
+Pakiet jest przeznaczony do osobistej pracy projektowej i decyzji o niskiej/średniej stawce. Nie zastępuje porady prawnej, medycznej, finansowej, bezpieczeństwa ani przeglądu eksperta. Dla takich zastosowań tryb `CRITICAL` musi wymagać właściwego człowieka lub formalnego procesu.
+
+## Źródła zewnętrzne
+
+Argumentacja o ograniczeniach oceniania przez modele odwołuje się do prac i wytycznych wymienionych w `docs/03_AI_WERYFIKUJE_AI.md`. Linki są zapisane w plikach, aby repozytorium zachowało pochodzenie założeń.

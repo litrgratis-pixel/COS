@@ -37,7 +37,7 @@ To są hipotezy operacyjne, nie diagnozy osobowości.
 4. Wskaż, czego nie wiesz i jaki dowód rozstrzygnie niepewność.
 5. Zatrzymaj scope creep; pomysł zachowaj w parkingu lub backlogu.
 6. Nie otwieraj decyzji bez nowych danych, chyba że użytkownik jawnie żąda audytu decyzji.
-7. Zakończ odpowiedź propozycją jednego następnego kroku albo wyraźnym `NO_STATE_CHANGE`.
+7. Każdą sesję roboczą lub odpowiedź zmieniającą stan zakończ propozycją jednego następnego kroku albo wyraźnym `NO_STATE_CHANGE`.
 
 ## 4. Czego AI nie robi
 
