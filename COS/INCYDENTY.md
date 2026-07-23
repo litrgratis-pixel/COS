@@ -16,6 +16,7 @@ Wpisz tu błędne przepuszczenia, fałszywe zatrzymania, wycieki danych, konflik
 | INC-2026-001 | 2026-07-23 | pełna analiza bez pełnego kodu | mitigated | AUD-2026-001 |
 | INC-2026-002 | 2026-07-23 | mock lub kompilacja przedstawione jako działająca funkcja | mitigated | AUD-2026-001 |
 | INC-2026-003 | 2026-07-23 | semantic reopen bez nowych danych | mitigated | AUD-2026-001 |
+| INC-2026-004 | 2026-07-23 | pomieszanie formy artefaktu, rodzaju sesji i poziomu decyzji | mitigated | AUD-2026-002 |
 
 ## INC-2026-001 — pełna analiza bez pełnego kodu
 
@@ -55,6 +56,24 @@ Wpisz tu błędne przepuszczenia, fałszywe zatrzymania, wycieki danych, konflik
 - Zmiana reguły lub testu: `WNIOSKI_I_POMYSLY/MAPA_ALIASOW.md` i brama semantic reopen.
 - Właściciel: user.
 - Status: mitigated; zamknąć po późniejszym przypadku, w którym mapa aliasów rzeczywiście zatrzymała reopen.
+
+## INC-2026-004 — pomieszanie formy artefaktu, rodzaju sesji i poziomu decyzji
+
+- Data: 2026-07-23.
+- Kontekst i tryb: porównanie dwóch audytów drugiej, krótszej rozmowy kontrolnej „AI Collaboration Operating System”. Audytorom przekazano zwarty rezultat rozmowy bez pełnej atrybucji wiadomości.
+- Co system zrobił:
+  1. audyt ślepy opisał normatywne zdania artefaktu jako „jawne decyzje”, mimo braku możliwości przypisania ich użytkownikowi;
+  2. podczas pierwszej próby zapisu wyników sesja została sklasyfikowana jako `document_only`, ponieważ oceniono formę artefaktu zamiast potwierdzonego przez użytkownika pochodzenia z odrębnej rozmowy.
+- Co powinien był zrobić:
+  - rozdzielić `source_session_kind` od `submitted_artifact_kind`;
+  - rozdzielić `DECISION_IN_ARTIFACT`, `USER_DECISION` i `COS_DECISION`;
+  - oznaczyć ograniczenia atrybucji bez wykluczania rozmowy z pilota.
+- Skutek: ryzyko utraty ważnego przypadku kontrolnego oraz zawyżenia liczby decyzji użytkownika.
+- Przyczyna źródłowa: jedno pole opisywało jednocześnie pochodzenie sesji, format materiału i możliwość atrybucji; słowo `DECISION` było zbyt szerokie.
+- Obejście/rollback: błędna gałąź została cofnięta do `main` przed utworzeniem PR; audyt zapisano jako `AUD-2026-002` z jawnymi ograniczeniami pokrycia rozmowy.
+- Zmiana reguły lub testu: kandydat do checkpointu po trzecim audycie — dwie osie źródła i trzy poziomy decyzji. Nie zmieniać jeszcze protokołu.
+- Właściciel: user.
+- Status: mitigated; zamknąć po poprawnym sklasyfikowaniu trzeciego przypadku bez korekty użytkownika.
 
 ## Szablon
 
