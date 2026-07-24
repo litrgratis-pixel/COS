@@ -3,60 +3,62 @@ protocol: cognitive-os-v0
 artifact: conversation_audit
 id: AUD-2026-002
 status: complete
-source_session_kind: conversation
-submitted_artifact_kind: conversation_derived_normative_output
-source_coverage: full_of_submitted_artifact
-conversation_coverage: partial_or_unattributed
-counted_as_conversation: true
+source_coverage: full
 control_case: true
 repo_commit: 77a2544409a0cd56c9ddc4fb341ec0e721b29919
 mode: READ_ONLY
 created_at: 2026-07-23
-source_sha256: bf060bfff294b9fca3c890f7373ac79a85af5409f833af06239b0aab78995121
 verdict: NEEDS_EVIDENCE
 ---
 
 # AUD-2026-002 — rozmowa „AI Collaboration Operating System”
 
-## 1. Klasyfikacja po doprecyzowaniu użytkownika
+## 1. Zakres
 
-To jest **druga, odrębna rozmowa** dotycząca podobnego problemu współpracy z AI. Została wybrana zgodnie z planem jako krótszy przypadek kontrolny.
+To jest druga, odrębna i krótsza rozmowa kontrolna dotycząca podobnego problemu współpracy z AI.
 
-Materiał przekazany audytorom miał jednak formę zwartego, normatywnego rezultatu rozmowy bez pełnego podziału na wiadomości użytkownika i AI. Dlatego należy rozdzielić dwie osie:
+Została przeanalizowana dwuetapowo:
 
-```text
-jednostka eksperymentu: rozmowa — TAK
-pełna transkrypcja z atrybucją autorów: NIE / niedostępna w pakiecie audytowym
-pełne pokrycie przekazanego artefaktu: TAK
-możliwość przypisania każdej tezy użytkownikowi lub AI: NIE
-```
+1. Prompt 1 — ślepy inwentarz rozmowy bez użycia repozytorium;
+2. Prompt 2 — audyt rozmowy względem aktualnego stanu `litrgratis-pixel/COS`, gałąź `main`.
 
-Rozmowa liczy się jako `AUD-2026-002`. Ograniczenie atrybucji wpływa na dostępne metryki, ale nie wyklucza przypadku z pilota.
+Materiały:
 
-## 2. Materiały audytowe
+- `Pilot Prompt 3.docx` — ślepy inwentarz;
+- `AUD-2026-002_AI_COLLABORATION_OS_READONLY.md` — pełny audyt względem repo;
+- `Pilot prompt 4.docx` — skrócony werdykt;
+- rezultat rozmowy: dokument „AI Collaboration Operating System”;
+- commit bazowy: `77a2544409a0cd56c9ddc4fb341ec0e721b29919`;
+- tryb obu audytów: `READ_ONLY`;
+- zmiany repo podczas audytów: brak.
 
-- odpowiedź na audyt ślepy: `Pilot Prompt 3.docx`;
-- pełny audyt względem repo: `AUD-2026-002_AI_COLLABORATION_OS_READONLY.md`;
-- skrócony werdykt audytu repo: `Pilot prompt 4.docx`;
-- źródłowy rezultat rozmowy: „AI Collaboration Operating System”;
-- commit bazowy repo: `77a2544409a0cd56c9ddc4fb341ec0e721b29919`;
-- tryb audytu: `READ_ONLY`;
-- zmiany repo podczas obu audytów: brak.
+## 2. Cel przypadku kontrolnego
 
-## 3. Cel przypadku kontrolnego
+Sprawdzić, czy dwuetapowy audyt działa na rozmowie:
 
-Sprawdzić, czy dwuetapowy audyt działa na materiale:
+- znacznie krótszej niż `AUD-2026-001`;
+- dotyczącej podobnego problemu;
+- prowadzonej niezależnie;
+- zakończonej zwartą propozycją systemu zamiast długiego dryfu technicznego.
 
-- znacznie krótszym niż `AUD-2026-001`;
-- dotyczącym podobnego problemu;
-- powstałym w innej rozmowie i innym przebiegu;
-- zakończonym zwartym dokumentem zamiast wielosesyjnego dryfu technicznego.
+Przypadek nie jest jeszcze mocnym kontrastem domenowym, ponieważ nadal dotyczy projektowania sposobu współpracy z AI.
 
-Przypadek testuje wpływ długości i formy rezultatu. Nie jest jeszcze mocnym kontrastem domenowym, ponieważ nadal dotyczy projektowania systemu współpracy z AI.
+## 3. Werdykt wykonawczy
 
-## 4. Charakter rezultatu drugiej rozmowy
+`NEEDS_EVIDENCE`
 
-Rozmowa doprowadziła do powstania dokumentu proponującego uniwersalny sposób pracy z AI obejmujący:
+Rozmowa doprowadziła do uporządkowanego i spójnie napisanego rezultatu, lecz rezultat formalizuje pełny, uniwersalny system przed pomiarem kosztu i przed porównaniem z prostszą procedurą.
+
+Nie ma podstaw do:
+
+- przyjęcia jedenastofazowego workflow;
+- zastąpienia aktualnego COS;
+- uznania wszystkich ról, stanów i formularzy za obowiązkowe;
+- zmiany protokołu przed checkpointem po trzecim audycie.
+
+## 4. Rezultat rozmowy
+
+Dokument proponuje system obejmujący:
 
 - 4 role: Diagnosta, Architekt, Wykonawca, Audytor;
 - 5 typów tematów;
@@ -68,95 +70,114 @@ Rozmowa doprowadziła do powstania dokumentu proponującego uniwersalny sposób 
 - 9 kroków formularza startowego;
 - 4 werdykty rundy;
 - 5 obowiązkowych elementów pierwszej odpowiedzi;
-- nazwę `AI Collaboration Operating System` i cztery nazwy alternatywne.
+- nazwę `AI Collaboration Operating System` i kilka nazw alternatywnych.
 
-Intencja jest spójna: ograniczyć zgadywanie, przedwczesną implementację i fałszywe domknięcie. Rezultat formalizuje jednak szeroki system przed pomiarem kosztu prostszej procedury.
+Intencja jest wartościowa: ograniczyć zgadywanie, przedwczesną implementację i fałszywe domknięcie. Skala rozwiązania jest jednak większa od przedstawionego dowodu potrzeby.
 
-## 5. Co wykazał audyt ślepy
+## 5. Prompt 1 — ślepy inwentarz
 
-Pierwsza odpowiedź dobrze wykonała analizę struktury materiału:
+Pierwsza odpowiedź analizowała rozmowę bez odwołania do repozytorium.
 
-- odtworzyła mapę tematów;
-- pokazała rozwój od ogólnej potrzeby do pełnego workflow;
-- wykryła powtórzenia i sprzeczności;
-- zidentyfikowała pomysły wymagające parkingu;
-- wskazała twierdzenia wymagające cross-checku;
-- zauważyła, że dokument deklaruje uniwersalność, lecz używa głównie artefaktów technicznych.
+Dobrze wykonała:
 
-Najważniejsze napięcia wykryte w tej odpowiedzi:
+- mapę tematów;
+- rekonstrukcję rozwoju od ogólnej potrzeby do kompletnego workflow;
+- wykrycie powtórzeń i sprzeczności;
+- listę elementów wymagających doprecyzowania;
+- listę pomysłów nadających się do parkingu;
+- identyfikację twierdzeń wymagających cross-checku;
+- wykrycie rozrostu terminologii i liczby warstw procesu.
+
+Najważniejsze napięcia wykryte bez użycia COS:
 
 1. stała kolejność ról kontra audyt przed wykonaniem;
 2. obowiązkowa diagnoza każdego tematu kontra wyjątek dla tematów prostych;
 3. cztery role kontra pięć trybów i jedenastofazowy workflow;
 4. pięć stanów gotowości kontra cztery werdykty bez mapowania;
 5. ustalanie „prawdziwego celu” przez AI kontra zakaz zgadywania;
-6. jeden workflow 0–10 kontra skrócona sekwencja końcowa;
-7. jedna wersja prawdy bez jawnego właściciela autoryzacji;
-8. krytyka False Convergence przy jednoczesnym ogłoszeniu własnego workflow jako „kanonicznego”.
+6. workflow 0–10 kontra skrócona sekwencja końcowa;
+7. jedna wersja prawdy bez jasno wskazanego właściciela zatwierdzenia;
+8. krytyka False Convergence przy jednoczesnym ogłoszeniu własnego workflow jako kanonicznego.
 
-## 6. Błąd klasyfikacji w pierwszej odpowiedzi
+Mocna strona Promptu 1: materiał został oceniony na własnych warunkach, bez dopasowywania go do istniejącej teorii COS.
 
-Audyt ślepy używał kategorii:
+Ograniczenie Promptu 1: nie mógł ustalić, które elementy są już obsłużone przez repo i jaka jest rzeczywista delta.
 
-```text
-DECISION — zapis sformułowany w materiale jako obowiązujący wybór
-```
+## 6. Prompt 2 — audyt względem repozytorium
 
-oraz opisał piętnaście normatywnych zdań jako „jawne decyzje”, mimo zastrzeżenia, że nie są jeszcze kanonem COS.
+Druga odpowiedź:
 
-Po doprecyzowaniu użytkownika wiemy, że materiał pochodzi z osobnej rozmowy. Nadal jednak brak pełnej atrybucji nie pozwala stwierdzić, które z tych zdań były:
-
-- decyzją użytkownika;
-- propozycją AI;
-- tekstem wspólnie wypracowanym;
-- finalnym szkicem bez jawnego zatwierdzenia każdego punktu.
-
-Poprawne rozróżnienie brzmi:
-
-```text
-DECISION_IN_ARTIFACT ≠ USER_DECISION ≠ COS_DECISION
-```
-
-Pierwsza odpowiedź była użyteczna strukturalnie, ale zbyt szeroko użyła słowa `DECISION`. Jest to potwierdzony błąd klasyfikacji audytora, nie dowód, że sama rozmowa nie jest rozmową.
-
-## 7. Co wykazał audyt względem repo
-
-Druga odpowiedź wykonała poprawny `BOOT_ACK`, wskazała commit i zachowała `READ_ONLY`.
-
-Najważniejsze mocne strony:
-
-- poprawnie stwierdziła, że z przekazanego artefaktu nie da się wiarygodnie przypisać jawnych decyzji użytkownikowi;
-- obniżyła normatywne zobowiązania do `PROPOSAL` lub `PREFERENCE`;
-- oddzieliła materiał rozmowy od stanu repo;
-- wykazała, że większość mechanizmów już istnieje w COS w bardziej operacyjnej formie;
-- wskazała konflikty ze skalowaniem głębokości do stawki i z checkpointami pilota;
-- wykryła brak reuse gate, prywatności, source coverage, kosztu protokołu, human approval i warunków reopen;
-- nie zaproponowała automatycznego patcha;
+- wykonała `BOOT_ACK`;
+- wskazała commit bazowy;
+- zachowała tryb `READ_ONLY`;
+- porównała wynik rozmowy z aktualnym COS;
+- oddzieliła propozycje rozmowy od obowiązującego stanu repo;
+- wykazała, że większość mechanizmów już istnieje w prostszej formie;
+- wskazała konflikty ze skalowaniem głębokości do stawki i checkpointami pilota;
+- wykryła brak reuse gate, kosztu protokołu, human approval, prywatności i warunków reopen;
+- nie przygotowała automatycznego patcha;
 - zakończyła wynikiem `NEEDS_EVIDENCE` i `STATE_CHANGE_RECOMMENDED: NO`.
 
-## 8. Ustalenia wspólne obu audytów
+Mocna strona Promptu 2: zamienił opis rozmowy w kontrolę zgodności i minimalną deltę bez promowania całego lokalnego systemu do kanonu.
 
-Obie odpowiedzi niezależnie wskazały, że:
+Ryzyko Promptu 2: istniejący COS może nadmiernie ukierunkować interpretację materiału. Dlatego etap ślepy powinien zawsze poprzedzać audyt repo.
+
+## 7. Ustalenia wspólne obu audytów
+
+Obie odpowiedzi wskazały, że:
 
 1. rezultat rozmowy proponuje pełny, uniwersalny proces przed walidacją prostszego wariantu;
 2. reguły brzmią bardziej kategorycznie, niż pozwalają dowody;
-3. sztywna kolejność ról i obowiązkowa diagnoza mogą generować false stop;
-4. dokument jest wewnętrznie niespójny w relacji między rolami, trybami, fazami i werdyktami;
+3. sztywna kolejność ról i obowiązkowa diagnoza mogą generować niepotrzebny koszt;
+4. dokument jest niespójny w relacji między rolami, trybami, fazami i werdyktami;
 5. wyjątek dla tematów prostych nie jest wystarczająco zdefiniowany;
-6. najbardziej obiecującą częścią jest lekka identyfikacja gotowości, artefaktu i bramki, nie pełne 11 faz;
-7. pełne przypisanie tez użytkownikowi lub AI wymagałoby transkrypcji z rolami rozmówców.
+6. najbardziej obiecującą częścią jest lekka identyfikacja rezultatu, gotowości, artefaktu i bramki, nie pełne 11 faz;
+7. dokument nie przedstawia wyników użycia ani porównania z mniejszą procedurą.
 
-## 9. Porównanie z AUD-2026-001
+Zbieżność zwiększa wiarygodność obserwacji, ale nie jest niezależnym dowodem skuteczności lub nieskuteczności proponowanego systemu.
+
+## 8. Co wykazało dopiero porównanie z repo
+
+Aktualny COS już obsługuje:
+
+- jedno źródło prawdy;
+- rozdzielenie rozmowy i stanu;
+- diagnozę rezultatu i stawki;
+- jawne braki i niepewność;
+- adaptacyjną głębokość procesu;
+- pracę artefaktami;
+- audyt przed zmianą stanu;
+- human approval;
+- reuse gate;
+- WIP=1;
+- parking i warunki powrotu;
+- closer, handoff i jeden następny krok;
+- metrykę kosztu protokołu;
+- checkpointy zmian zamiast ciągłej rozbudowy.
+
+Nie ma potrzeby dodawania duplikujących reguł.
+
+## 9. Konflikty z aktualnym COS
+
+- stała kolejność czterech ról kontra adaptacyjna głębokość;
+- obowiązkowa diagnoza każdego tematu kontra proporcjonalność nadzoru;
+- jedenastofazowy workflow kontra aktywny cel minimalizacji;
+- natychmiastowe stosowanie pełnego systemu kontra checkpointy 3/6/10;
+- werdykt AI bez jasno wskazanej autoryzacji człowieka;
+- brak reuse gate przed projektowaniem własnego mechanizmu;
+- brak pomiaru kosztu i procedury usuwania zbędnych etapów;
+- brak warunku ponownego otwarcia odrzuconych kierunków;
+- deklarowana uniwersalność bez testów poza domeną projektowo-techniczną.
+
+## 10. Porównanie z AUD-2026-001
 
 ### Wspólny wzorzec
-
-W dwóch niezależnych rozmowach na podobny temat wystąpił ten sam mechanizm:
 
 ```text
 potrzeba uporządkowania pracy z AI
 → szeroka architektura i terminologia
 → system przedstawiany jako uniwersalny
-→ niewystarczający pomiar kosztu i prostszej alternatywy
+→ brak pomiaru kosztu i prostszej alternatywy
 ```
 
 ### Różny przebieg
@@ -164,22 +185,24 @@ potrzeba uporządkowania pracy z AI
 `AUD-2026-001`:
 
 - rozrost był stopniowy;
-- kolejne funkcje i architektury pojawiały się w wielu rundach;
+- funkcje i architektury pojawiały się w wielu rundach;
 - overclaimy dotyczyły także kodu i działania technicznego;
 - użytkownik później wykrywał mocki i niepełną analizę.
 
 `AUD-2026-002`:
 
 - formalizacja nastąpiła szybko;
-- rozmowa zakończyła się zwartym dokumentem normatywnym;
-- główną awarią nie był mock kodu, lecz przedwczesne zamrożenie procesu;
+- rozmowa zakończyła się zwartym systemem normatywnym;
+- głównym ryzykiem było przedwczesne zamrożenie procesu;
 - nadmiar przejawiał się w rolach, taksonomiach, stanach, fazach i brandingu.
 
-To jest wartościowy wynik pilota: scope creep może być **sekwencyjny** albo **skompresowany w jednym pozornie kompletnym artefakcie**.
+Wniosek pilota:
 
-## 10. Semantic reopen i podobieństwo do COS
+> Nadmierna architektura może narastać sekwencyjnie albo pojawić się od razu jako elegancki, pozornie kompletny system.
 
-Dokument używa nazw:
+## 11. Semantic reopen
+
+Rozmowa używa nazw:
 
 - AI Collaboration Operating System;
 - AI Topic Operating Framework;
@@ -187,27 +210,15 @@ Dokument używa nazw:
 - AI Diagnosis to Delivery System;
 - Canonical AI Workflow Framework.
 
-Nie należy automatycznie traktować go jako nowego projektu lub zamiennika COS. Większość jego intencji jest już obsługiwana przez:
+Nazwy te opisują wariant pełnego uniwersalnego systemu współpracy z AI. Aktualny COS jest pilotem minimalnego protokołu, a pełny system pozostaje poza zakresem do zakończenia eksperymentu.
 
-- hierarchię źródeł;
-- jawny stan;
-- typowanie twierdzeń;
-- `READ_ONLY` przed zmianą;
-- human approval;
-- reuse gate;
-- WIP=1;
-- parking i warunki powrotu;
-- closer i handoff;
-- metryki kosztu;
-- checkpointy 3/6/10.
+Nowa nazwa i większa liczba faz nie stanowią nowego dowodu.
 
-Nowa nazwa i większa liczba faz nie są nowym dowodem.
+## 12. Minimalna delta do obserwacji
 
-## 11. Minimalna delta do obserwacji
+Nie ma podstaw do przyjęcia pełnego workflow.
 
-Nie ma podstaw do przyjęcia pełnego workflow. Dwa elementy warto zachować jako kandydatów do checkpointu:
-
-### CAND-AUD2-01 — lekka karta intake dla złożonych tematów
+Jedynym kandydatem wartym testu na checkpointcie jest lekka karta wejściowa dla złożonych tematów:
 
 ```text
 RESULT:
@@ -217,91 +228,67 @@ TARGET_ARTIFACT:
 GATE:
 ```
 
-Nie testować jako obowiązkowej formy dla wszystkich pytań.
-
-### CAND-AUD2-02 — rozdzielenie pochodzenia sesji i formy artefaktu
-
-Ten przypadek pokazuje, że jedno pole `source_kind` może być zbyt uproszczone. Potrzebne mogą być dwie osie:
-
-```yaml
-source_session_kind: conversation | document | mixed
-submitted_artifact_kind: full_transcript | excerpt | single_response | synthesized_output | summary
-```
-
-Nie zmieniać jeszcze szablonu przed checkpointem po trzecim audycie.
-
-### CAND-AUD2-03 — trzy poziomy decyzji
-
-```text
-DECISION_IN_ARTIFACT
-USER_DECISION
-COS_DECISION
-```
-
-Kandydat rozwiązuje błąd pierwszego audytora, ale wymaga sprawdzenia na trzecim przypadku.
-
-## 12. Ocena wartości przypadku kontrolnego
-
-### Co przypadek potwierdził
-
-- dwuetapowy audyt działa także na krótszym materiale;
-- ślepy inwentarz wykrywa sprzeczności bez dopasowania do COS;
-- audyt repo ogranicza promocję lokalnych reguł do kanonu;
-- pełny dokument nie jest automatycznie pełnym dowodem;
-- podobny problem w odrębnej rozmowie może wygenerować inną formę tego samego nadmiaru.
-
-### Czego przypadek nie potwierdził
-
-- kosztu czasowego, ponieważ czasy nie zostały zmierzone;
-- działania na innej domenie;
-- jakości dla rozmowy przebiegającej dobrze;
-- metryk chronologii, korekt i decyzji użytkownika przy pełnej transkrypcji;
-- przewagi karty intake nad obecnym lekkim kontraktem.
-
-Przypadek spełnia warunek „krótsza rozmowa kontrolna”, ale tylko częściowo spełnia warunek kontrastu: domena i problem pozostają podobne do pierwszego audytu.
+Nie należy stosować jej jako obowiązkowej formy dla wszystkich pytań. Najpierw trzeba sprawdzić, czy zmniejsza liczbę błędnych startów przy koszcie niższym od samego zadania.
 
 ## 13. Metryki
 
-- `source_session_kind`: conversation;
-- `submitted_artifact_kind`: conversation_derived_normative_output;
-- `source_coverage`: full_of_submitted_artifact;
-- `conversation_coverage`: partial_or_unattributed;
-- `explicit_user_decisions`: unavailable from submitted artifact;
-- `decision_like_statements`: 15 wskazanych przez pierwszy audyt;
-- `semantic_reopens`: 1 klaster, 5 nazw;
-- `confirmed_auditor_false_pass`: 1 — pomieszanie decyzji w artefakcie z decyzją użytkownika;
-- `confirmed_false_stop`: 0;
-- `false_stop_risks`: 4;
-- `protocol_changes`: 0;
 - `bootstrap_minutes`: UNKNOWN;
 - `analysis_minutes`: UNKNOWN;
-- `protocol_minutes`: UNKNOWN.
+- `protocol_minutes`: UNKNOWN;
+- `source_coverage`: full;
+- reguły przedstawione jako obowiązujące w rezultacie rozmowy: 15;
+- semantic reopen: 1 klaster, 5 nazw;
+- false stop potwierdzone: 0;
+- ryzyka false stop: 4;
+- formalnie zaparkowane elementy: 0;
+- kandydaci do parkingu: 7;
+- zaakceptowane zmiany protokołu: 0;
+- odrzucone zmiany protokołu: 0.
 
-## 14. Werdykt
+Brak pomiaru czasu uniemożliwia ocenę, czy pełny dwuetapowy audyt jest opłacalny dla krótszej rozmowy.
+
+## 14. Co przypadek potwierdził
+
+- Prompt 1 i Prompt 2 pełnią różne, komplementarne role;
+- ślepy inwentarz wykrywa sprzeczności bez narzucania kanonu;
+- audyt repo wykrywa duplikaty i konflikty ze stanem;
+- krótka rozmowa również może prowadzić do przedwczesnej architektury;
+- checkpoint powstrzymał natychmiastowe rozszerzenie COS;
+- lokalny system nie został automatycznie awansowany do kanonu.
+
+## 15. Czego przypadek nie potwierdził
+
+- kosztu czasowego metody;
+- skuteczności w innej domenie;
+- zachowania COS w rozmowie przebiegającej dobrze;
+- liczby false stop przy prostym zadaniu;
+- przewagi lekkiej karty wejściowej nad zwykłym ustaleniem rezultatu.
+
+## 16. Werdykt
 
 `NEEDS_EVIDENCE`
 
-Druga rozmowa jest ważnym przypadkiem pilota. Pokazuje, że krótszy przebieg nie musi oznaczać mniejszego scope creep — nadmiar może zostać skompresowany do eleganckiego, lecz niezweryfikowanego dokumentu normatywnego.
+Rezultat rozmowy zawiera wartościowe zasady, lecz większość jest już obsłużona przez COS, a pełny workflow jest zbyt rozbudowany względem dostępnych dowodów.
 
-Nie należy przyjmować pełnego AI Collaboration Operating System ani zmieniać protokołu przed checkpointem.
+`STATE_CHANGE_RECOMMENDED: NO` dla protokołu.
 
-## 15. Następny przypadek
+Zapis audytu, metryk i postępu pilota jest uzasadniony.
 
-Trzeci audyt powinien maksymalizować kontrast:
+## 17. Jeden następny krok
 
-- inna domena niż projektowanie systemów AI;
-- najlepiej rozmowa, która przebiegła dobrze;
-- pełna transkrypcja albo jawne etykiety USER/AI;
-- jasno określony rezultat;
-- zmierzony czas bootstrapu, analizy i obsługi protokołu.
+Przeprowadzić trzeci audyt na rozmowie:
 
-## 16. Stan końcowy
+- z innej domeny;
+- przebiegającej dobrze albo bez dużego dryfu;
+- z jasno określonym rezultatem;
+- ze zmierzonym czasem bootstrapu, analizy i obsługi protokołu.
+
+## 18. Stan końcowy
 
 ```text
 INVENTORY_COMPLETE
 AUDIT_COMPLETE
-conversation_counted: YES
 verdict: NEEDS_EVIDENCE
-STATE_CHANGE_RECOMMENDED: LOGGING_AND_PROGRESS_ONLY
 PROTOCOL_CHANGE: NO
+STATE_CHANGE: AUDIT_LOGGED
 ```
