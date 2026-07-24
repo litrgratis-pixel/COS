@@ -18,7 +18,7 @@ Celem metryk jest wykrycie, czy protokół zmienia jakość pracy, a nie udowodn
 | liczba reopenów bez nowych danych | co najmniej kilka w `AUD-2026-001`; dokładna normalizacja jeszcze nieustalona | audyt rozmowy 4-AI | medium |
 | liczba semantycznych duplikatów pomysłów | wysoka w `AUD-2026-001`; klastry HRM/routing/debate i self-heal/meta-loop | audyt rozmowy 4-AI | medium |
 | czas administracyjny protokołu | UNKNOWN | pierwsze dwie sesje nie były mierzone zegarem | low |
-| false pass | co najmniej dwa ważne wzorce techniczne w `AUD-2026-001`; jeden potwierdzony błąd klasyfikacji audytora w `AUD-2026-002` | audyty 001–002 | high |
+| false pass | co najmniej dwa ważne wzorce: mock jako funkcja i analiza kodu bez kodu | `AUD-2026-001` | high |
 | false stop | 0 potwierdzonych; ryzyka w obu audytach | audyty 001–002 | low |
 
 Baseline retrospektywny jest niepełny. Od następnej sesji należy mierzyć czas rzeczywisty.
@@ -31,10 +31,7 @@ Baseline retrospektywny jest niepełny. Od następnej sesji należy mierzyć cza
 | `analysis_minutes` | czas analizy materiału, bez zmian repo |
 | `protocol_minutes` | czas klasyfikacji, closera, aktualizacji plików i walidacji |
 | `source_coverage` | full / partial / metadata_only / summary_only |
-| `source_session_kind` | conversation / document / mixed |
-| `submitted_artifact_kind` | full_transcript / excerpt / single_response / synthesized_output / summary |
-| `explicit_decisions` | jawne decyzje użytkownika możliwe do przypisania |
-| `decision_like_statements` | zdania normatywne lub decyzyjne w artefakcie bez gwarancji autorstwa |
+| `explicit_decisions` | jawne decyzje użytkownika |
 | `pseudo_decisions` | rekomendacje lub twierdzenia AI brzmiące jak decyzje/fakty |
 | `semantic_reopens` | powrót zamkniętego kierunku pod tą samą lub inną nazwą bez nowych danych |
 | `idea_aliases` | liczba nazw należących do istniejącego klastra pomysłów |
@@ -46,14 +43,12 @@ Baseline retrospektywny jest niepełny. Od następnej sesji należy mierzyć cza
 | `protocol_changes` | liczba zmian samego COS po sesji |
 | `resume_minutes_next_session` | czas wznowienia przy następnym użyciu handoffu |
 
-Pola `source_session_kind` i `submitted_artifact_kind` są na razie używane obserwacyjnie. Ich obowiązkowe wejście do szablonu wymaga decyzji na checkpointcie po trzecim audycie.
-
 ## 3. Dziennik wyników
 
-| Sesja | Audyt | Bootstrap min | Analiza min | Protokół min | Decyzje | Pseudo-decyzje / zdania normatywne | Reopeny | False pass | False stop | Zaparkowane | Zmiany COS | Uwagi |
+| Sesja | Audyt | Bootstrap min | Analiza min | Protokół min | Decyzje | Pseudo-decyzje / reguły normatywne | Reopeny | False pass | False stop | Zaparkowane | Zmiany COS | Uwagi |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
 | SES-2026-07-23-001 | AUD-2026-001 | UNKNOWN | UNKNOWN | UNKNOWN | 6–7 historycznych | 10+ | 6+ | 2 kluczowe | UNKNOWN | 12 klastrów/kandydatów | 0 podczas audytu; konfiguracja pilota po decyzji użytkownika | pierwsza sesja daje jakościowy baseline, ale nie pozwala ocenić kosztu czasowego |
-| SES-2026-07-23-002 | AUD-2026-002 | UNKNOWN | UNKNOWN | UNKNOWN | niedostępne z przekazanego artefaktu | 15 decision-like statements według audytu ślepego | 1 klaster / 5 nazw | 1 potwierdzony błąd audytora | 0 potwierdzonych; 4 ryzyka | 7 kandydatów, 0 formalnych | 0 zmian protokołu; tylko logowanie postępu | druga rozmowa jest krótsza, lecz nadal dotyczy tej samej domeny; audytowano zwarty rezultat bez pełnej atrybucji |
+| SES-2026-07-23-002 | AUD-2026-002 | UNKNOWN | UNKNOWN | UNKNOWN | nieustalone | 15 reguł przedstawionych jako obowiązujące | 1 klaster / 5 nazw | 0 potwierdzonych | 0 potwierdzonych; 4 ryzyka | 7 kandydatów, 0 formalnych | 0 zmian protokołu; tylko logowanie postępu | krótsza rozmowa na podobny temat; szybka formalizacja pełnego systemu bez pomiaru kosztu |
 
 ## 4. Wstępne porównanie po dwóch audytach
 
@@ -64,7 +59,7 @@ Obie rozmowy przekształciły potrzebę uporządkowania pracy z AI w szeroki sys
 ### Różnica przebiegu
 
 - `AUD-2026-001`: stopniowy scope creep w wielu rundach, kod i overclaimy techniczne;
-- `AUD-2026-002`: skompresowany scope creep w jednym zwartym dokumencie normatywnym.
+- `AUD-2026-002`: skompresowany scope creep w szybko sformalizowanym systemie normatywnym.
 
 ### Wniosek tymczasowy
 
@@ -79,7 +74,7 @@ Nie jest to jeszcze checkpoint. Potrzebny jest trzeci przypadek z innej domeny.
 - sprawdź, które awarie powtarzają się w co najmniej dwóch rozmowach;
 - usuń propozycje oparte wyłącznie na jednym nietypowym przypadku;
 - oceń średni koszt protokołu;
-- rozstrzygnij kandydatów: klasyfikacja źródła, poziomy decyzji i lekka karta intake;
+- rozstrzygnij, czy lekka karta wejściowa wnosi wartość;
 - nie zmieniaj jeszcze statusu na wersję końcową.
 
 ### Po 6 audytach lub sesjach
@@ -110,5 +105,4 @@ Nie jest to jeszcze checkpoint. Potrzebny jest trzeci przypadek z innej domeny.
 1. zmierzyć zegarem `bootstrap_minutes`, `analysis_minutes` i `protocol_minutes`;
 2. ustalić prostą normalizację reopenów na 100 stron lub 100 wiadomości;
 3. zapisać czas wznowienia po co najmniej jednodniowej przerwie;
-4. wybrać trzecią rozmowę z innej domeny, najlepiej przebiegającą dobrze;
-5. zapewnić pełną transkrypcję albo etykiety USER/AI.
+4. wybrać trzecią rozmowę z innej domeny, najlepiej przebiegającą dobrze.
