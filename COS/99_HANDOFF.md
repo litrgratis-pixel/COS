@@ -4,7 +4,7 @@ type: handoff_snapshot
 version: 0.1
 status: active
 generated_at: 2026-07-23
-source_commit_or_hash: 2d90c6e364708c4bd982a43057ee5be13dc8c2dd
+source_commit_or_hash: 5c86b01ba2e949c0f22ae3fb7040798995a123d7
 valid_until: 2026-07-30
 ---
 
@@ -43,28 +43,31 @@ Przeprowadzić dziesięć rzeczywistych sesji, w tym serię zróżnicowanych aud
 
 - zakończono 2 audyty rozmów z wymaganych minimum 3 przed pierwszym checkpointem;
 - `AUD-2026-001`: długi, sekwencyjny scope creep i overclaimy techniczne;
-- `AUD-2026-002`: krótsza rozmowa, skompresowany scope creep w zwartym dokumencie normatywnym;
+- `AUD-2026-002`: krótsza rozmowa, szybka formalizacja rozbudowanego systemu normatywnego;
 - nie zmierzono jeszcze czasu bootstrapu, analizy ani protokołu;
 - nie zmieniono protokołu po drugim audycie.
 
-## Lekcja z AUD-2026-002
+## Najważniejsza lekcja z dwóch audytów
 
-Trzeba rozdzielać:
-
-```text
-rodzaj sesji źródłowej
-formę artefaktu przekazanego audytorowi
-możliwość atrybucji wypowiedzi
-poziom decyzji
-```
-
-W szczególności:
+Prompt 1 i Prompt 2 pełnią różne funkcje:
 
 ```text
-DECISION_IN_ARTIFACT ≠ USER_DECISION ≠ COS_DECISION
+Prompt 1 → ślepy inwentarz rozmowy
+Prompt 2 → audyt rozmowy względem aktualnego repozytorium
 ```
 
-Rozmowa może zakończyć się zwartym dokumentem. Zwarty dokument nie daje jednak automatycznie pełnej atrybucji decyzji.
+Pierwszy etap ogranicza dopasowanie materiału do istniejącej teorii. Drugi etap wskazuje konflikty, duplikaty i minimalną deltę względem obowiązującego stanu.
+
+Wspólny wzorzec dwóch rozmów:
+
+```text
+potrzeba uporządkowania pracy z AI
+→ szeroka architektura i terminologia
+→ system przedstawiany jako uniwersalny
+→ brak pomiaru kosztu i prostszej alternatywy
+```
+
+Nadmierna architektura może narastać przez wiele rund albo pojawić się od razu jako elegancki, pozornie kompletny system.
 
 ## Czego nie otwierać ponownie bez nowych danych
 
@@ -89,24 +92,14 @@ Przed reopenem sprawdź `WNIOSKI_I_POMYSLY/MAPA_ALIASOW.md`. Nowa nazwa nie jest
 - raport sesji: `COS/SESJE/2026-07-23-002.md`;
 - audyt: `PILOT/AUDYTY/AUD-2026-002_AI_COLLABORATION_OS.md`;
 - rejestr: `PILOT/REJESTR_ROZMOW.md`;
-- metryki: `PILOT/METRYKI.md`;
-- nowy incydent: `INC-2026-004` w `COS/INCYDENTY.md`.
+- metryki: `PILOT/METRYKI.md`.
 
-Najważniejsza lekcja przekrojowa: nadmierna architektura może rosnąć stopniowo albo zostać skompresowana do jednej eleganckiej, pozornie kompletnej odpowiedzi.
+## Kandydat oczekujący na checkpoint
 
-## Kandydaci oczekujący na checkpoint
+Nie jest jeszcze regułą:
 
-Nie są jeszcze regułami:
-
-1. dwie osie klasyfikacji źródła:
-   - `source_session_kind`;
-   - `submitted_artifact_kind`;
-2. trzy poziomy decyzji:
-   - `DECISION_IN_ARTIFACT`;
-   - `USER_DECISION`;
-   - `COS_DECISION`;
-3. lekka karta intake:
-   - `RESULT / LEVEL / READINESS_STATE / TARGET_ARTIFACT / GATE`.
+- lekka karta wejściowa dla złożonych tematów:
+  `RESULT / LEVEL / READINESS_STATE / TARGET_ARTIFACT / GATE`.
 
 ## Jeden następny krok
 
@@ -114,7 +107,6 @@ Wybrać trzeci przypadek o maksymalnym kontraście:
 
 - inna domena niż projektowanie systemów AI;
 - rozmowa przebiegająca dobrze albo bez dużego dryfu;
-- pełna transkrypcja lub etykiety USER/AI;
 - jasno określony rezultat;
 - zmierzone `bootstrap_minutes`, `analysis_minutes` i `protocol_minutes`.
 
